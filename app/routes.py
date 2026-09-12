@@ -515,3 +515,35 @@ def api_profile():
         "email": user.email,
         "role": user.role
     })
+@main.route("/api/orders/<int:order_id>")
+@login_required
+def api_order(order_id):
+
+    order = Order.query.get_or_404(order_id)
+
+    return jsonify({
+        "id": order.id,
+        "user_id": order.user_id,
+        "total": order.total,
+        "status": order.status
+    })
+@main.route("/search")
+def search():
+
+    query = request.args.get("q", "")
+
+    sql = f"""
+        SELECT id, name, description, price, stock
+        FROM product
+        WHERE name LIKE '%{query}%'
+    """
+
+    results = db.session.execute(
+        db.text(sql)
+    ).fetchall()
+
+    return render_template(
+        "search.html",
+        results=results,
+        query=query
+    )

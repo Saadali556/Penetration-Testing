@@ -1,61 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}SecureShop{% endblock %}</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        SecureShop
+        {% endblock %}
+    </title>
 
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/style.css') }}"
     >
+
 </head>
+
 
 <body>
 
-<nav class="navbar">
-    <div class="nav-links">
+    <!-- Navigation -->
 
-    <a href="/">Products</a>
+    <nav class="navbar">
 
-    {% if session.get("user_id") %}
+        <div class="container">
 
-        <a href="/profile">Profile</a>
+            <a
+                href="/"
+                class="logo"
+            >
+                SecureShop
+            </a>
 
-        <a href="/cart">Cart</a>
 
-        <a href="/orders">Orders</a>
+            <div class="nav-links">
 
-        {% if session.get("role") == "admin" %}
-            <a href="/admin">Admin</a>
-        {% endif %}
+                <a href="/">
+                    Products
+                </a>
 
-        <a href="/logout">Logout</a>
+                <a href="/search">
+                    Search
+                </a>
 
-    {% else %}
 
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+                {% if session.get("user_id") %}
 
-    {% endif %}
+                    <a href="/profile">
+                        Profile
+                    </a>
 
-</div>
-            <a href="/">Products</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+                    <a href="/cart">
+                        Cart
+                    </a>
+
+                    <a href="/orders">
+                        Orders
+                    </a>
+
+
+                    {% if session.get("role") == "admin" %}
+
+                        <a href="/admin">
+                            Admin
+                        </a>
+
+                    {% endif %}
+
+
+                    <a href="/logout">
+                        Logout
+                    </a>
+
+
+                {% else %}
+
+                    <a href="/login">
+                        Login
+                    </a>
+
+                    <a href="/register">
+                        Register
+                    </a>
+
+                {% endif %}
+
+            </div>
+
         </div>
+
+    </nav>
+
+
+    <!-- Flash Messages -->
+
+    <div class="container">
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash-message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
     </div>
-</nav>
 
-<main class="container">
-    {% block content %}
-    {% endblock %}
-</main>
 
-<footer>
-    <p>SecureShop — Local Security Training Lab</p>
-</footer>
+    <!-- Main Content -->
+
+    <main class="container">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                SecureShop — Local Security Training Lab
+            </p>
+
+        </div>
+
+    </footer>
+
 
 </body>
+
 </html>
