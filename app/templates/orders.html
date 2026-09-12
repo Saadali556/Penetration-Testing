@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders - SecureShop{% endblock %}
+
+{% block content %}
+
+<h1>My Orders</h1>
+
+{% if orders %}
+
+{% for order in orders %}
+
+<div class="product-card">
+
+    <h3>
+        Order #{{ order.id }}
+    </h3>
+
+    <p>
+        Total:
+        ${{ "%.2f"|format(order.total) }}
+    </p>
+
+    <p>
+        Status: {{ order.status }}
+    </p>
+
+    <a href="/orders/{{ order.id }}">
+        View Order
+    </a>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<p>You have no orders.</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}SecureShop{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-links">
+
+    <a href="/">Products</a>
+
+    {% if session.get("user_id") %}
+
+        <a href="/profile">Profile</a>
+
+        <a href="/cart">Cart</a>
+
+        <a href="/orders">Orders</a>
+
+        {% if session.get("role") == "admin" %}
+            <a href="/admin">Admin</a>
+        {% endif %}
+
+        <a href="/logout">Logout</a>
+
+    {% else %}
+
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+
+    {% endif %}
+
+</div>
+            <a href="/">Products</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    <p>SecureShop — Local Security Training Lab</p>
+</footer>
+
+</body>
+</html>

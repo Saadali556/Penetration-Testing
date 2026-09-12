@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}SecureShop - Home{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>Welcome to SecureShop</h1>
+
+    <p>
+        Your developer-focused online store.
+    </p>
+
+</section>
+
+
+{% if session.get("user_id") %}
+
+<div>
+
+    <p>
+        Logged in as:
+        <strong>{{ session.get("role") }}</strong>
+    </p>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</div>
+
+{% endif %}
+
+
+<h2>Products</h2>
+
+
+<div class="products">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+        <h3>
+            {{ product.name }}
+        </h3>
+
+        <p>
+            {{ product.description }}
+        </p>
+
+        <p class="price">
+            ${{ "%.2f"|format(product.price) }}
+        </p>
+
+        <p>
+            Stock: {{ product.stock }}
+        </p>
+
+        <button>
+            <form
+    method="POST"
+    action="/cart/add/{{ product.id }}"
+>
+
+    <button type="submit">
+        Add to Cart
+    </button>
+
+</form>
+        </button>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

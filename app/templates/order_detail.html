@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Order #{{ order.id }}{% endblock %}
+
+{% block content %}
+
+<h1>Order #{{ order.id }}</h1>
+
+<p>
+    Status: {{ order.status }}
+</p>
+
+{% for item in order.items %}
+
+<div class="product-card">
+
+    <h3>{{ item.product_name }}</h3>
+
+    <p>
+        Price:
+        ${{ "%.2f"|format(item.price) }}
+    </p>
+
+    <p>
+        Quantity: {{ item.quantity }}
+    </p>
+
+</div>
+
+{% endfor %}
+
+<h2>
+    Total: ${{ "%.2f"|format(order.total) }}
+</h2>
+
+{% endblock %}
