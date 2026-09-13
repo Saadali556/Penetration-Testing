@@ -1,26 +1,32 @@
+import os
+
 from app import create_app, db
 from app.models import User, Product
 from werkzeug.security import generate_password_hash
 
-
 app = create_app()
 
+admin_password = os.environ.get("ADMIN_PASSWORD")
+customer_password = os.environ.get("CUSTOMER_PASSWORD")
+
+if not admin_password or not customer_password:
+    raise RuntimeError(
+        "ADMIN_PASSWORD and CUSTOMER_PASSWORD are required"
+    )
 
 with app.app_context():
-
     if User.query.count() == 0:
-
         admin = User(
             name="Admin",
             email="admin@secureshop.local",
-            password=generate_password_hash("AdminPassword123!"),
+            password=generate_password_hash(admin_password),
             role="admin"
         )
 
         customer = User(
             name="Test Customer",
             email="customer@secureshop.local",
-            password=generate_password_hash("CustomerPassword123!"),
+            password=generate_password_hash(customer_password),
             role="customer"
         )
 
@@ -28,41 +34,34 @@ with app.app_context():
         db.session.add(customer)
 
     if Product.query.count() == 0:
-
         products = [
-
             Product(
                 name="Developer Laptop",
                 description="15-inch development laptop",
                 price=799.99,
                 stock=20
             ),
-
             Product(
                 name="Mechanical Keyboard",
                 description="Mechanical keyboard",
                 price=89.99,
                 stock=50
             ),
-
             Product(
                 name="Security Book",
                 description="Application security reference",
                 price=39.99,
                 stock=100
             ),
-
             Product(
                 name="USB-C Hub",
                 description="Multi-port USB-C hub",
                 price=49.99,
                 stock=30
             )
-
         ]
 
         db.session.add_all(products)
 
     db.session.commit()
-
     print("Database seeded successfully.")
