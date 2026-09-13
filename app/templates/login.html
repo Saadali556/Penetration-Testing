@@ -9,7 +9,7 @@
     <h1>Login</h1>
 
     <form method="POST" action="/login">
-
+{{ csrf_token() }}
         <label for="email">Email</label>
         <input
             type="email"
