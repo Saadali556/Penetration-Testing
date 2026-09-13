@@ -37,3 +37,24 @@ Flask Web Application
    |
    v
 SQLite Database
+## Project Screenshots
+
+### Application Overview
+
+![Application Overview](docs/screenshots/Screenshot_2026-09-13_12_23_38.png)
+
+### Security Testing
+
+![Security Testing](docs/screenshots/Screenshot_2026-09-13_12_25_31.png)
+
+### SQL Injection Testing
+
+![SQL Injection Testing](docs/screenshots/Screenshot_2026-09-13_12_26_24.png)
+
+### Reflected XSS Testing
+
+![Reflected XSS Testing](docs/screenshots/Screenshot_2026-09-13_12_26_36.png)
+
+### Security Retesting
+
+![Security Retesting](docs/screenshots/Screenshot_2026-09-13_12_26_47.png)
